@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +56,7 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int interrupt_cycle = 0;
 /* USER CODE END 0 */
 
 /**
@@ -89,7 +89,8 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim2);
+  set_Timer1(1000, interrupt_cycle);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,11 +100,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_Delay(2000);
-	  HAL_GPIO_WritePin(GPIOA, LED_RED_VER_Pin|LED_YELLOW_VER_Pin|LED_GREEN_VER_Pin|LED_RED_HOR_Pin
-                          |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin, GPIO_PIN_RESET);
-	  HAL_GPIO_WritePin(GPIOA, EN_HOR_1_Pin|EN_HOR_2_Pin, GPIO_PIN_RESET);
-	  HAL_GPIO_WritePin(GPIOA, EN_VER_2_Pin|EN_VER_1_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(GPIOA, EN_HOR_1_Pin, GPIO_PIN_RESET);
+	  //HAL_GPIO_WritePin(GPIOA, EN_VER_2_Pin|EN_VER_1_Pin|EN_HOR_2_Pin, GPIO_PIN_SET);
+	  if(timer_flag1==1){
+		  set_Timer1(1000, interrupt_cycle);
+		  HAL_GPIO_TogglePin(GPIOA, LED_RED_HOR_Pin
+                          |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin);
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -164,7 +167,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 7999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 9;
+  htim2.Init.Period = 99;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -183,7 +186,7 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM2_Init 2 */
-
+  interrupt_cycle = (int)((1+htim2.Init.Prescaler)*(1+htim2.Init.Period))/8000;
   /* USER CODE END TIM2_Init 2 */
 
 }
@@ -204,12 +207,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_RED_VER_Pin|LED_YELLOW_VER_Pin|LED_GREEN_VER_Pin|LED_RED_HOR_Pin
                           |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin|EN_VER_1_Pin|EN_VER_2_Pin
-                          |EN_HOR_1_Pin|EN_HOR_2_Pin, GPIO_PIN_RESET);
+                          |EN_HOR_1_Pin|EN_HOR_2_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, EN_SEG_VER1_Pin|EN_SEG_VER2_Pin|EN_SEG_HOR1_Pin|EN_SEG_HOR2_Pin
                           |seg7_a_Pin|seg7_b_Pin|seg7_c_Pin|seg7_d_Pin
-                          |seg7_e_Pin|seg7_f_Pin|seg7_g_Pin, GPIO_PIN_RESET);
+                          |seg7_e_Pin|seg7_f_Pin|seg7_g_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : LED_RED_VER_Pin LED_YELLOW_VER_Pin LED_GREEN_VER_Pin LED_RED_HOR_Pin
                            LED_YELLOW_HOR_Pin LED_GREEN_HOR_Pin EN_VER_1_Pin EN_VER_2_Pin
@@ -242,7 +245,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	timerRun();
+}
 /* USER CODE END 4 */
 
 /**
