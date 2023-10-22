@@ -107,7 +107,7 @@ void Error_Handler(void);
 #define seg7_g_Pin GPIO_PIN_9
 #define seg7_g_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+int get_interrupt_cycle();
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

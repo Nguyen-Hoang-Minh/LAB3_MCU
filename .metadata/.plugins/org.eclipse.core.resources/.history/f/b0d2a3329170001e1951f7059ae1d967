@@ -1,0 +1,19 @@
+/*
+ * traffic_light.h
+ *
+ *  Created on: Oct 21, 2023
+ *      Author: ADMIN
+ */
+
+#ifndef INC_TRAFFIC_LIGHT_H_
+#define INC_TRAFFIC_LIGHT_H_
+
+#define RED 	5000
+#define YELLOW	2000
+#define GREEN 	3000
+void set_red_cycle(int duration);
+void set_yellow_cycle(int duration);
+void set_green_cycle(int duration);
+void traffic_light();
+void init_traffic_light();
+#endif /* INC_TRAFFIC_LIGHT_H_ */

@@ -23,6 +23,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "software_timer.h"
+#include "traffic_light.h"
+#include "input_reading.h"
+#include "input_processing.h"
+#include "test_button.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -90,7 +94,7 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  set_Timer1(1000, interrupt_cycle);
+  //init_traffic_light();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,13 +104,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_WritePin(GPIOA, EN_HOR_1_Pin, GPIO_PIN_RESET);
-	  //HAL_GPIO_WritePin(GPIOA, EN_VER_2_Pin|EN_VER_1_Pin|EN_HOR_2_Pin, GPIO_PIN_SET);
-	  if(timer_flag1==1){
-		  set_Timer1(1000, interrupt_cycle);
-		  HAL_GPIO_TogglePin(GPIOA, LED_RED_HOR_Pin
-                          |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin);
-	  }
+	 // fsm_for_input_processing();
+	  //traffic_light();
+	  HAL_GPIO_WritePin(GPIOA, LED_GREEN_HOR_Pin|EN_HOR_1_Pin|EN_VER_1_Pin, 0);
+	  toogle();
   }
   /* USER CODE END 3 */
 }
@@ -167,7 +168,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 7999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 99;
+  htim2.Init.Period = 9;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -186,7 +187,7 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM2_Init 2 */
-  interrupt_cycle = (int)((1+htim2.Init.Prescaler)*(1+htim2.Init.Period))/8000;
+  interrupt_cycle = (int)(((1+htim2.Init.Prescaler)*(1+htim2.Init.Period))/8000);
   /* USER CODE END TIM2_Init 2 */
 
 }
@@ -245,8 +246,17 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	timerRun();
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM2){
+		button_reading();
+		timerRun();
+	}
+}
+
+int get_interrupt_cycle(){
+	return interrupt_cycle;
 }
 /* USER CODE END 4 */
 

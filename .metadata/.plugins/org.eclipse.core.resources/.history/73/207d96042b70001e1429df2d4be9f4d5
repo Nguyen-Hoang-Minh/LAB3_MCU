@@ -1,0 +1,106 @@
+/*
+ * traffic_light.c
+ *
+ *  Created on: Oct 21, 2023
+ *      Author: ADMIN
+ */
+
+#include "traffic_light.h"
+#include "main.h"
+#include "software_timer.h"
+enum traffic_light_state{
+	RED,
+	YELLOW,
+	GREEN
+};
+int red_cycle = 0, yellow_cycle = 0, green_cycle = 0;
+enum traffic_light_state vertical = RED;
+enum traffic_light_state horizontal = GREEN;
+
+void set_red_cycle(int duration){
+	red_cycle = duration;
+}
+
+void set_yellow_cycle(int duration){
+	yellow_cycle = duration;
+}
+
+void set_green_cycle(int duration){
+	green_cycle = duration;
+}
+
+void  scan_2leds(GPIO_P)
+void traffic_light(){
+	//display7SEG(get_timer1_counter());
+	 	  switch (vertical){
+	 	  	  case RED:{
+	 	  		  HAL_GPIO_WriteP
+	 	  		  HAL_GPIO_WritePin(GPIOA, LED_RED_VER_Pin, GPIO_PIN_RESET);
+	 	  		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_VER_Pin|LED_GREEN_VER_Pin, GPIO_PIN_SET);
+	 	  		  if(timer_flag1 == 1){
+	 	  			  vertical = GREEN;
+	 	  			  set_Timer1(3000, get_interrupt_timer());
+	 	  		  }
+	 	  		  break;
+	 	  	  }
+	 	  	  case YELLOW:{
+	 	  		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_VER1_Pin|LED_YELLOW_VER2_Pin, GPIO_PIN_RESET);
+	 	  		  HAL_GPIO_WritePin(GPIOA, LED_RED_VER1_Pin|LED_RED_VER2_Pin
+	 	  			  		  	  	  	  |LED_GREEN_VER1_Pin|LED_GREEN_VER2_Pin, GPIO_PIN_SET);
+	 	  		  if(timer_flag1 == 1){
+	 	  			  vertical = RED;
+	 	  			  set_Timer1(5);
+	 	  		  }
+	 	  		  break;
+	 	  	  }
+	 	  	  case GREEN:{
+	 	  		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_VER1_Pin|LED_GREEN_VER2_Pin, GPIO_PIN_RESET);
+	 	  		  HAL_GPIO_WritePin(GPIOA, LED_RED_VER1_Pin|LED_RED_VER2_Pin
+	 	  		  			  		  	  |LED_YELLOW_VER1_Pin|LED_YELLOW_VER2_Pin, GPIO_PIN_SET);
+	 	  		  if(timer_flag1 == 1){
+	 	  			  vertical = YELLOW;
+	 	  			  set_Timer1(2);
+	 	  		  }
+	 	  		  break;
+	 	  	  }
+	 	  	  default:{
+	 	  		  break;
+	 	  	  }
+	 	  }
+	 	  switch (horizontal){
+	 	  	  	  case RED:{
+	 	  	  		  HAL_GPIO_WritePin(GPIOB, LED_RED_HOR1_Pin|LED_RED_HOR2_Pin, GPIO_PIN_RESET);
+	 	  	  		  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_HOR1_Pin|LED_YELLOW_HOR2_Pin
+	 	  	  		  	  	  	  	  	  	   |LED_GREEN_HOR1_Pin|LED_GREEN_HOR2_Pin, GPIO_PIN_SET);
+	 	  	  		  if(timer_flag2 == 1){
+	 	  	  			  horizontal = GREEN;
+	 	  	  			  set_Timer2(3);
+	 	  	  		  }
+	 	  	  		  break;
+	 	  	  	  }
+	 	  	  	  case YELLOW:{
+	 	  	  		  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_HOR1_Pin|LED_YELLOW_HOR2_Pin, GPIO_PIN_RESET);
+	 	  	  		  HAL_GPIO_WritePin(GPIOB, LED_RED_HOR1_Pin|LED_RED_HOR2_Pin
+	 	  	  			  		  	  	  	  |LED_GREEN_HOR1_Pin|LED_GREEN_HOR2_Pin, GPIO_PIN_SET);
+	 	  	  		  if(timer_flag2 == 1){
+	 	  	  			  horizontal = RED;
+	 	  	  			  set_Timer2(5);
+	 	  	  		  }
+	 	  	  		  break;
+	 	  	  	  }
+	 	  	  	  case GREEN:{
+	 	  	  		  HAL_GPIO_WritePin(GPIOB, LED_GREEN_HOR1_Pin|LED_GREEN_HOR2_Pin, GPIO_PIN_RESET);
+	 	  	  		  HAL_GPIO_WritePin(GPIOB, LED_RED_HOR1_Pin|LED_RED_HOR2_Pin
+	 	  	  		  			  		  	  |LED_YELLOW_HOR1_Pin|LED_YELLOW_HOR2_Pin, GPIO_PIN_SET);
+	 	  	  		  if(timer_flag2 == 1){
+	 	  	  			  horizontal = YELLOW;
+	 	  	  			  set_Timer2(2);
+	 	  	  		  }
+	 	  	  		  break;
+	 	  	  	  }
+	 	  	  	  default:{
+	 	  	  		  break;
+	 	  	  	  }
+	 	  	  }
+
+}

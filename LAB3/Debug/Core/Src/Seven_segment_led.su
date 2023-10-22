@@ -1,0 +1,4 @@
+Seven_segment_led.c:13:6:display7SEG	296	static
+Seven_segment_led.c:36:6:update_display	16	static
+Seven_segment_led.c:80:6:init_7seg	8	static
+Seven_segment_led.c:87:6:update_7seg_buffer	16	static

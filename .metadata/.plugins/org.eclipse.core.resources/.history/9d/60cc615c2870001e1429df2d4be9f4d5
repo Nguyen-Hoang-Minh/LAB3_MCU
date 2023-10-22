@@ -1,0 +1,32 @@
+/*
+ * traffic_light.c
+ *
+ *  Created on: Oct 21, 2023
+ *      Author: ADMIN
+ */
+
+#include "traffic_light.h"
+
+enum traffic_light_state{
+	RED,
+	YELLOW,
+	GREEN
+};
+int red_cycle = 0, yellow_cycle = 0, green_cycle = 0;
+enum traffic_light_state vertical = RED;
+enum traffic_light_state horizontal = GREEN;
+
+void set_red_cycle(int duration){
+	red_cycle = duration;
+}
+
+void set_yellow_cycle(int duration){
+	yellow_cycle = duration;
+}
+
+void set_green_cycle(int duration){
+	green_cycle = duration;
+}
+void traffic_light(){
+
+}

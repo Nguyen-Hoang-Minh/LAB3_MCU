@@ -1,0 +1,64 @@
+/*
+ * input_processing.c
+ *
+ *  Created on: Oct 22, 2023
+ *      Author: ADMIN
+ */
+
+
+#include "main.h"
+#include "input_reading.h"
+#include "traffic_light.h"
+
+enum ButtonState{
+	BUTTON_RELEASED,
+	BUTTON_PRESSED,
+	BUTTON_PRESSED_MORE_THAN_1_SECOND
+};
+
+enum SystemState{
+	MODE1,
+	MODE2,
+	MODE3,
+	MODE4
+};
+
+enum SystemState system_state = MODE1;
+enum ButtonState buttonState = BUTTON_RELEASED;
+void fsm_for_input_processing(void){
+	switch(system_state){
+	case MODE1:
+	{
+
+		if(is_button_pressed(0)){
+			system_state = MODE2;
+			//INCREASE VALUE OF PORT A BY ONE UNIT
+		}
+		break;
+	}
+	case MODE2:
+	{
+		if(is_button_pressed(0)){
+			system_state = MODE3;
+		}
+		break;
+	}
+	case MODE3:
+	{
+		if(is_button_pressed(0)){
+			system_state = MODE4;
+		}
+		//todo
+		break;
+	}
+	case MODE4:
+	{
+		if(is_button_pressed(0)){
+			system_state = MODE1;
+		}
+		break;
+	}
+	default:
+		break;
+	}
+}
