@@ -92,6 +92,8 @@ void Error_Handler(void);
 #define EN_HOR_1_GPIO_Port GPIOA
 #define EN_HOR_2_Pin GPIO_PIN_10
 #define EN_HOR_2_GPIO_Port GPIOA
+#define LED_TEST_Pin GPIO_PIN_11
+#define LED_TEST_GPIO_Port GPIOA
 #define seg7_a_Pin GPIO_PIN_3
 #define seg7_a_GPIO_Port GPIOB
 #define seg7_b_Pin GPIO_PIN_4

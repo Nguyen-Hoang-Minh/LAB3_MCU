@@ -149,6 +149,7 @@ void traffic_light(){
 
 void display_red_light(){
 	HAL_GPIO_WritePin(GPIOA, LED_RED_HOR_Pin|LED_RED_VER_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_HOR_Pin|LED_YELLOW_VER_Pin|LED_GREEN_HOR_Pin|LED_GREEN_VER_Pin, GPIO_PIN_SET);
 	if(timer_flag2 == 1){
 		set_Timer2(100, get_interrupt_cycle());
 		HAL_GPIO_TogglePin(GPIOA, EN_HOR_1_Pin|EN_HOR_2_Pin|EN_VER_1_Pin|EN_VER_2_Pin);
@@ -157,6 +158,7 @@ void display_red_light(){
 
 void display_yellow_light(){
 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_HOR_Pin|LED_YELLOW_VER_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, LED_RED_HOR_Pin|LED_RED_VER_Pin|LED_GREEN_HOR_Pin|LED_GREEN_VER_Pin, GPIO_PIN_SET);
 	if(timer_flag2 == 1){
 		set_Timer2(100, get_interrupt_cycle());
 		HAL_GPIO_TogglePin(GPIOA, EN_HOR_1_Pin|EN_HOR_2_Pin|EN_VER_1_Pin|EN_VER_2_Pin);
@@ -165,6 +167,7 @@ void display_yellow_light(){
 
 void display_green_light(){
 	HAL_GPIO_WritePin(GPIOA, LED_GREEN_HOR_Pin|LED_GREEN_VER_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_HOR_Pin|LED_YELLOW_VER_Pin|LED_RED_HOR_Pin|LED_RED_VER_Pin, GPIO_PIN_SET);
 	if(timer_flag2 == 1){
 		set_Timer2(100, get_interrupt_cycle());
 		HAL_GPIO_TogglePin(GPIOA, EN_HOR_1_Pin|EN_HOR_2_Pin|EN_VER_1_Pin|EN_VER_2_Pin);

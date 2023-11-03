@@ -94,7 +94,7 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  //init_traffic_light();
+  init_traffic_light();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,10 +104,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	 // fsm_for_input_processing();
+	 fsm_for_input_processing();
 	  //traffic_light();
-	  HAL_GPIO_WritePin(GPIOA, LED_GREEN_HOR_Pin|EN_HOR_1_Pin|EN_VER_1_Pin, 0);
-	  toogle();
+	  //toogle();
+
   }
   /* USER CODE END 3 */
 }
@@ -208,7 +208,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_RED_VER_Pin|LED_YELLOW_VER_Pin|LED_GREEN_VER_Pin|LED_RED_HOR_Pin
                           |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin|EN_VER_1_Pin|EN_VER_2_Pin
-                          |EN_HOR_1_Pin|EN_HOR_2_Pin, GPIO_PIN_SET);
+                          |EN_HOR_1_Pin|EN_HOR_2_Pin|LED_TEST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, EN_SEG_VER1_Pin|EN_SEG_VER2_Pin|EN_SEG_HOR1_Pin|EN_SEG_HOR2_Pin
@@ -217,17 +217,23 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : LED_RED_VER_Pin LED_YELLOW_VER_Pin LED_GREEN_VER_Pin LED_RED_HOR_Pin
                            LED_YELLOW_HOR_Pin LED_GREEN_HOR_Pin EN_VER_1_Pin EN_VER_2_Pin
-                           EN_HOR_1_Pin EN_HOR_2_Pin */
+                           EN_HOR_1_Pin EN_HOR_2_Pin LED_TEST_Pin */
   GPIO_InitStruct.Pin = LED_RED_VER_Pin|LED_YELLOW_VER_Pin|LED_GREEN_VER_Pin|LED_RED_HOR_Pin
                           |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin|EN_VER_1_Pin|EN_VER_2_Pin
-                          |EN_HOR_1_Pin|EN_HOR_2_Pin;
+                          |EN_HOR_1_Pin|EN_HOR_2_Pin|LED_TEST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : BTN1_Pin BTN2_Pin BTN3_Pin */
-  GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|BTN3_Pin;
+  /*Configure GPIO pin : BTN1_Pin */
+  GPIO_InitStruct.Pin = BTN1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(BTN1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : BTN2_Pin BTN3_Pin */
+  GPIO_InitStruct.Pin = BTN2_Pin|BTN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);

@@ -14,7 +14,7 @@
 
 void toogle(){
 	if(is_button_pressed(0) == 1 ){
-		HAL_GPIO_TogglePin(GPIOA, LED_RED_VER_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_TEST_Pin);
 	}
 	//scan_2leds(EN_VER_1_Pin, EN_VER_2_Pin);
 }

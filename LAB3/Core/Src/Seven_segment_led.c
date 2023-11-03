@@ -85,9 +85,9 @@ void init_7seg(){
 	display7SEG(led_buffer[0]);
 }
 void update_7seg_buffer(int vertical, int horizontal){
-	led_buffer[0] = vertical/10;
+	led_buffer[0] = (int)vertical/10;
 	led_buffer[1] = vertical%10;
-	led_buffer[2] = horizontal/10;
+	led_buffer[2] = (int)horizontal/10;
 	led_buffer[3] = horizontal%10;
 	if(led_buffer[3] <= 0){
 		led_buffer[3] = 0;

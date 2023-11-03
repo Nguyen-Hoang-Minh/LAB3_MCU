@@ -22,11 +22,12 @@ enum SystemState{
 enum SystemState system_state = MODE1;
 
 void fsm_for_input_processing(void){
+	//init_traffic_light();
 	switch(system_state){
 	case MODE1:
 	{
 		traffic_light();
-		if(is_button_pressed(0)){
+		if(is_button_pressed(0) == 1){
 			system_state = MODE2;
 			//INCREASE VALUE OF PORT A BY ONE UNIT
 		}
@@ -34,17 +35,17 @@ void fsm_for_input_processing(void){
 	}
 	case MODE2:
 	{
-		update_7seg_buffer(get_red_cycle(), 2);
+		update_7seg_buffer(get_red_cycle()/1000, 2);
 		scan_4leds();
 		display_red_light();
-		if(is_button_pressed(0)){
+		if(is_button_pressed(0) == 1){
 			system_state = MODE3;
 		}
 		break;
 	}
 	case MODE3:
 	{
-		update_7seg_buffer(get_yellow_cycle(), 3);
+		update_7seg_buffer(get_yellow_cycle()/1000, 3);
 		scan_4leds();
 		display_yellow_light();
 		if(is_button_pressed(0)){
@@ -54,7 +55,8 @@ void fsm_for_input_processing(void){
 	}
 	case MODE4:
 	{
-		update_7seg_buffer(get_green_cycle(), 4);
+		update_7seg_buffer(get_green_cycle()/1000, 4);
+		scan_4leds();
 		display_green_light();
 		if(is_button_pressed(0)){
 			system_state = MODE1;
