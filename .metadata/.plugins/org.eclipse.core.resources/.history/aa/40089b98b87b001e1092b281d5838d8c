@@ -64,7 +64,7 @@ void fsm_for_input_processing(void){
 			int tmp = get_yellow_cycle()/1000;
 			tmp++;
 			if(tmp > 99) tmp = 0;
-			set_yellow_cycle(tmp*1000);
+			set_red_cycle(tmp*1000);
 		}
 		update_7seg_buffer(get_yellow_cycle()/1000, 3);
 		scan_4leds();

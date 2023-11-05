@@ -60,20 +60,9 @@ void fsm_for_input_processing(void){
 	}
 	case MODE3:
 	{
-		if(is_button_pressed(1) == 1){
-			int tmp = get_yellow_cycle()/1000;
-			tmp++;
-			if(tmp > 99) tmp = 0;
-			set_yellow_cycle(tmp*1000);
-		}
 		update_7seg_buffer(get_yellow_cycle()/1000, 3);
 		scan_4leds();
 		display_yellow_light();
-		if(is_button_pressed(2) == 1){
-			if(get_red_cycle() != (get_yellow_cycle() + get_green_cycle()) ){
-				set_green_cycle(get_red_cycle() - get_yellow_cycle());
-			}
-		}
 		if(is_button_pressed(0) == 1){
 			system_state = MODE4;
 		}
