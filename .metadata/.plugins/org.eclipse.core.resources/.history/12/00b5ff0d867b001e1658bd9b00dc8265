@@ -94,9 +94,6 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  set_red_cycle(INIT_RED);//initial value for red cycle
-  set_yellow_cycle(INIT_YELLOW);//initial value for yellow cycle
-  set_green_cycle(INIT_GREEN);//initial value for green cycle
   init_traffic_light();
   /* USER CODE END 2 */
 
@@ -211,12 +208,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_RED_VER_Pin|LED_YELLOW_VER_Pin|LED_GREEN_VER_Pin|LED_RED_HOR_Pin
                           |LED_YELLOW_HOR_Pin|LED_GREEN_HOR_Pin|EN_VER_1_Pin|EN_VER_2_Pin
-                          |EN_HOR_1_Pin|EN_HOR_2_Pin|LED_TEST_Pin, GPIO_PIN_SET);
+                          |EN_HOR_1_Pin|EN_HOR_2_Pin|LED_TEST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, EN_SEG_VER1_Pin|EN_SEG_VER2_Pin|EN_SEG_HOR1_Pin|EN_SEG_HOR2_Pin
                           |seg7_a_Pin|seg7_b_Pin|seg7_c_Pin|seg7_d_Pin
-                          |seg7_e_Pin|seg7_f_Pin|seg7_g_Pin, GPIO_PIN_SET);
+                          |seg7_e_Pin|seg7_f_Pin|seg7_g_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED_RED_VER_Pin LED_YELLOW_VER_Pin LED_GREEN_VER_Pin LED_RED_HOR_Pin
                            LED_YELLOW_HOR_Pin LED_GREEN_HOR_Pin EN_VER_1_Pin EN_VER_2_Pin

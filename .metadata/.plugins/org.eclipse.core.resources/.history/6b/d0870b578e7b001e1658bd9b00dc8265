@@ -94,9 +94,6 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  set_red_cycle(INIT_RED);//initial value for red cycle
-  set_yellow_cycle(INIT_YELLOW);//initial value for yellow cycle
-  set_green_cycle(INIT_GREEN);//initial value for green cycle
   init_traffic_light();
   /* USER CODE END 2 */
 

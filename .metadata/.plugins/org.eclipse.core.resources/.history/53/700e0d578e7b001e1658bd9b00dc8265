@@ -61,6 +61,9 @@ void init_traffic_light(){
 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_HOR_Pin|LED_RED_HOR_Pin, GPIO_PIN_SET);//at the beginning, the red and yellow light of horizontal OFF
 	HAL_GPIO_WritePin(GPIOA, EN_HOR_1_Pin|EN_VER_1_Pin, GPIO_PIN_RESET);//initial for scan traffic led
 	HAL_GPIO_WritePin(GPIOA, EN_HOR_2_Pin|EN_VER_2_Pin, GPIO_PIN_SET);//initial for scan traffic led
+	set_red_cycle(INIT_RED);//initial value for red cycle
+	set_yellow_cycle(INIT_YELLOW);//initial value for yellow cycle
+	set_green_cycle(INIT_GREEN);//initial value for green cycle
 	set_Timer1(red_cycle, get_interrupt_cycle());
 	set_Timer3(green_cycle, get_interrupt_cycle());
 	set_Timer2(100, get_interrupt_cycle());//100 indicates for time scan(for traffic light)

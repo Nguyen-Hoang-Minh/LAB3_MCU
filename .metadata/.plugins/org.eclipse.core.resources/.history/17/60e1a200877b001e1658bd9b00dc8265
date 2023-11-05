@@ -7,7 +7,7 @@
 
 #include "main.h"
 //we aim to work with more than one buttons
-#define N0_OF_BUTTONS 				       3
+#define N0_OF_BUTTONS 				       1
 //timer interrupt duration is 10ms, so to pass 1 second,
 //we need to jump to the interrupt service routine 100 time
 #define DURATION_FOR_AUTO_INCREASING	   100
@@ -25,7 +25,6 @@ static uint8_t flagForButtonPress1s[N0_OF_BUTTONS];
 //we define counter for automatically increasing the value after the button is pressed more than 1 second.
 static uint16_t counterForButtonPress1s[N0_OF_BUTTONS];
 int counter_for_hold = 0;
-uint16_t button[N0_OF_BUTTONS] = {BTN1_Pin, BTN2_Pin, BTN3_Pin};
 
 void button_reading(void){
 	/*for(int i = 0; i < N0_OF_BUTTONS; i ++){
@@ -57,7 +56,7 @@ void button_reading(void){
 	for(int i = 0; i<N0_OF_BUTTONS; i++){
 		debounceButtonBuffer0[i] = debounceButtonBuffer1[i];
 		debounceButtonBuffer1[i] = debounceButtonBuffer2[i];
-		debounceButtonBuffer2[i] = HAL_GPIO_ReadPin(GPIOB, button[i]);
+		debounceButtonBuffer2[i] = HAL_GPIO_ReadPin(GPIOB, BTN1_Pin);
 		if((debounceButtonBuffer0[i] == debounceButtonBuffer1[i]) && (debounceButtonBuffer1[i] == debounceButtonBuffer2[i])){
 			if(debounceButtonBuffer3[i] != debounceButtonBuffer2[i]){
 				debounceButtonBuffer3[i] = debounceButtonBuffer2[i];
